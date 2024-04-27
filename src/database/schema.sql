@@ -5,7 +5,7 @@ CREATE TABLE enum_status (
 
 CREATE TABLE enum_category (
   id INTEGER AUTO_INCREMENT PRIMARY KEY,
-  name TEXT UNIQUE
+  name TEXT
 );
 
 CREATE TABLE user (
@@ -31,7 +31,7 @@ CREATE TABLE branch (
   opening_time TIME,
   closing_time TIME,
   FOREIGN KEY (status_id) REFERENCES enum_status(id),
-  FOREIGN KEY (category_id) REFERENCES enum_category(id)
+  FOREIGN KEY (category_id) REFERENCES enum_category(id),
   FOREIGN KEY (owner_id) REFERENCES user(id)
 );
 
