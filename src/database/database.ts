@@ -42,7 +42,7 @@ interface BranchTable {
 	owner_id: number;
 	name: string;
 	slogan: string;
-	phone_number: bigint;
+	phone_number: string;
 	description: string;
 	status_id: number;
 	image_base64: string;

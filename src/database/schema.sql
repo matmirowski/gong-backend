@@ -21,10 +21,10 @@ CREATE TABLE branch (
   owner_id INTEGER,
   name TEXT,
   slogan TEXT,
-  phone_number BIGINT, -- Adjusted to BIGINT to handle larger phone numbers
+  phone_number TEXT,
   description TEXT,
   status_id INTEGER,
-  image_base64 MEDIUMTEXT, -- MEDIUMTEXT for potentially large base64 images
+  image_base64 MEDIUMTEXT,
   price_low INTEGER,
   price_high INTEGER,
   category_id INTEGER,
@@ -32,6 +32,7 @@ CREATE TABLE branch (
   closing_time TIME,
   FOREIGN KEY (status_id) REFERENCES enum_status(id),
   FOREIGN KEY (category_id) REFERENCES enum_category(id)
+  FOREIGN KEY (owner_id) REFERENCES user(id)
 );
 
 CREATE TABLE branch_location (
