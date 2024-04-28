@@ -43,8 +43,25 @@ export class DbClient {
 				await sql`${sql.raw(query)}`.execute(this.kysely);
 			}
 			this.logger.log('Schema applied successfully', 'DATABASE');
+			await this.applyMockedData();
 		} catch (e) {
 			this.logger.log('DB schema not applied - database already up to date', 'DATABASE');
+		}
+	}
+
+	private async applyMockedData() {
+		const content = await fs.readFile('src/database/mocked-data.sql', { encoding: 'utf-8' });
+
+		const queries = content.split(/;\s*[\r\n]+/).filter((query) => query.trim() !== '');
+
+		try {
+			for (let query of queries) {
+				query = query.replace(/\n/g, ' ');
+				await sql`${sql.raw(query)}`.execute(this.kysely);
+			}
+			this.logger.log('Mocked Data applied successfully', 'DATABASE');
+		} catch (e) {
+			this.logger.log('Mocked Data not applied - something went wrong', 'DATABASE');
 		}
 	}
 }
