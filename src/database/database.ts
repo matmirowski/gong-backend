@@ -1,4 +1,4 @@
-import { Generated, Insertable, Selectable, Updateable } from 'kysely';
+import { Generated, Selectable } from 'kysely';
 
 export interface Database {
 	enumStatus: EnumStatusTable;
@@ -15,27 +15,19 @@ interface EnumStatusTable {
 	description: string;
 }
 
-export type EnumStatus = Selectable<EnumStatusTable>;
-export type NewEnumStatus = Insertable<EnumStatusTable>;
-
 interface EnumCategoryTable {
 	id: Generated<number>;
 	name: string;
 }
 
-export type EnumCategory = Selectable<EnumCategoryTable>;
-export type NewEnumCategory = Insertable<EnumCategoryTable>;
-
-interface UserTable {
+export interface UserTable {
 	id: Generated<number>;
 	email: string;
 	login: string;
 	hashed_password: string;
 	is_admin: boolean;
 }
-
-export type User = Selectable<UserTable>;
-export type NewUser = Insertable<UserTable>;
+export type SelectableUser = Selectable<UserTable>;
 
 interface BranchTable {
 	id: Generated<number>;
@@ -53,10 +45,6 @@ interface BranchTable {
 	closing_time: string;
 }
 
-export type Branch = Selectable<BranchTable>;
-export type NewBranch = Insertable<BranchTable>;
-export type BranchUpdate = Updateable<BranchTable>;
-
 interface BranchLocationTable {
 	id: Generated<number>;
 	branch_id: number;
@@ -66,10 +54,6 @@ interface BranchLocationTable {
 	distance_from_university: number;
 }
 
-export type BranchLocation = Selectable<BranchLocationTable>;
-export type NewBranchLocation = Insertable<BranchLocationTable>;
-export type BranchLocationUpdate = Updateable<BranchLocationTable>;
-
 interface CouponTable {
 	id: Generated<number>;
 	branch_id: number;
@@ -78,17 +62,9 @@ interface CouponTable {
 	lifespan: string;
 }
 
-export type Coupon = Selectable<CouponTable>;
-export type NewCoupon = Insertable<CouponTable>;
-export type CouponUpdate = Updateable<CouponTable>;
-
 interface CouponCodeTable {
 	id: Generated<number>;
 	coupon_id: number;
 	code: string;
 	created_at: Date;
 }
-
-export type CouponCode = Selectable<CouponCodeTable>;
-export type NewCouponCode = Insertable<CouponCodeTable>;
-export type CouponCodeUpdate = Updateable<CouponCodeTable>;
