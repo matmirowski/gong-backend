@@ -35,6 +35,7 @@ export class User {
 		this.hashPassword = data.hashPassword;
 		this.role = data.role;
 	}
+
 	static new(data: NewUserData) {
 		return new User({
 			email: data.email,
@@ -42,5 +43,9 @@ export class User {
 			hashPassword: hash(data.password),
 			role: UserRole.Owner,
 		});
+	}
+
+	validateRawPassword(rawPassword: string) {
+		return hash(rawPassword) === this.hashPassword;
 	}
 }

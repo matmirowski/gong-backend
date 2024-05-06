@@ -38,6 +38,7 @@ export class UserRepository {
 
 	async findOneBy(input: FindOneInput): Promise<User | undefined> {
 		let query = this.dbClient.db().selectFrom('user');
+
 		if (input.login) {
 			query = query.where('login', '=', input.login);
 		}

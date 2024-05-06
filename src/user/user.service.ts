@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { User } from './user';
 
-export type UserRegisterResult = { type: 'success' } | { type: 'user-already-exists' };
+type UserRegisterResult = { type: 'success' } | { type: 'user-already-exists' };
 
 @Injectable()
 export class UserService {
