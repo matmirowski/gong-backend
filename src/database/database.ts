@@ -1,13 +1,13 @@
 import { Generated, Selectable } from 'kysely';
 
 export interface Database {
-	enumStatus: EnumStatusTable;
-	enumCategory: EnumCategoryTable;
+	enum_status: EnumStatusTable;
+	enum_category: EnumCategoryTable;
 	user: UserTable;
 	branch: BranchTable;
-	branchLocation: BranchLocationTable;
+	branch_location: BranchLocationTable;
 	coupon: CouponTable;
-	couponCode: CouponCodeTable;
+	coupon_code: CouponCodeTable;
 }
 
 interface EnumStatusTable {
@@ -44,6 +44,7 @@ interface BranchTable {
 	opening_time: string;
 	closing_time: string;
 }
+export type SelectableBranch = Selectable<BranchTable>;
 
 interface BranchLocationTable {
 	id: Generated<number>;
@@ -53,6 +54,7 @@ interface BranchLocationTable {
 	building_number: number;
 	distance_from_university: number;
 }
+export type SelectableBranchLocation = Selectable<BranchLocationTable>;
 
 interface CouponTable {
 	id: Generated<number>;

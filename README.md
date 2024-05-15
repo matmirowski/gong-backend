@@ -1,4 +1,4 @@
 Konta w bazie:
-login: szymon@gmail.com password: Szymon123!
-login: mateusz@gmail.com password: Mateusz123!		
-login: kacper@gmail.com password: Kacper123!
+login: szymon password: Szymon123!
+login: mateusz password: Mateusz123!		
+login: kacper password: Kacper123!
