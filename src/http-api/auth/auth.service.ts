@@ -20,6 +20,7 @@ export class AuthService {
 
 	async signIn(login: string, password: string): Promise<SignInResult> {
 		const user = await this.userRepository.findOneBy({ login });
+		console.log(user);
 		if (!user || !user.validateRawPassword(password)) {
 			return { type: 'invalid-credentials' };
 		}
