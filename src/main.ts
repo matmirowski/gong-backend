@@ -11,6 +11,8 @@ async function bootstrap() {
 	const dbClient = app.get(DbClient);
 	await dbClient.applyDbSchema();
 
+	app.enableCors();
+
 	await app.listen(3000);
 }
 bootstrap();
