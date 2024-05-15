@@ -1,7 +1,7 @@
 INSERT INTO enum_status (description) VALUES
-('Potwierdzony'),
-('Odrzucony'),
-('Oczekujący');
+('active'),
+('rejected'),
+('pending');
 
 INSERT INTO enum_category (name) VALUES
 ('Restauracja'),

@@ -44,6 +44,7 @@ interface BranchTable {
 	opening_time: string;
 	closing_time: string;
 }
+export type SelectableBranch = Selectable<BranchTable>;
 
 interface BranchLocationTable {
 	id: Generated<number>;
@@ -53,6 +54,7 @@ interface BranchLocationTable {
 	building_number: number;
 	distance_from_university: number;
 }
+export type SelectableBranchLocation = Selectable<BranchLocationTable>;
 
 interface CouponTable {
 	id: Generated<number>;
