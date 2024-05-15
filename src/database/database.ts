@@ -1,13 +1,13 @@
 import { Generated, Selectable } from 'kysely';
 
 export interface Database {
-	enumStatus: EnumStatusTable;
-	enumCategory: EnumCategoryTable;
+	enum_status: EnumStatusTable;
+	enum_category: EnumCategoryTable;
 	user: UserTable;
 	branch: BranchTable;
-	branchLocation: BranchLocationTable;
+	branch_location: BranchLocationTable;
 	coupon: CouponTable;
-	couponCode: CouponCodeTable;
+	coupon_code: CouponCodeTable;
 }
 
 interface EnumStatusTable {

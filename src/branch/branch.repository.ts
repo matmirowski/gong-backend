@@ -30,12 +30,12 @@ export class BranchRepository {
 		let query = this.dbClient
 			.db()
 			.selectFrom('branch')
-			.innerJoin('branchLocation', 'branchLocation.branch_id', 'branch.id')
-			.innerJoin('enumStatus', 'enumStatus.id', 'branch.status_id')
+			.innerJoin('branch_location', 'branch_location.branch_id', 'branch.id')
+			.innerJoin('enum_status', 'enum_status.id', 'branch.status_id')
 			.innerJoin('user', 'user.id', 'branch.owner_id');
 
 		if (input.status) {
-			query = query.where('enumStatus.description', '=', input.status);
+			query = query.where('enum_status.description', '=', input.status);
 		}
 
 		if (input.ownerId) {
