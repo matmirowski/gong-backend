@@ -1,9 +1,10 @@
-import { Controller, Get, Inject, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
 import { RequiredAuth } from '../auth/auth-decorator';
 import { UserRole } from '../../user/user';
 import { ListBranchesQueryDto } from './dto/list-branches-query.dto';
 import { BranchService } from '../../branch/branch.service';
 import { ListBranchesResponseDto } from './dto/list-branches-response.dto';
+import { CreateBranchRequestDto } from './dto/create-branch-request.dto';
 
 @Controller('owner/:ownerId/branches')
 export class BranchOwnerController {
@@ -19,5 +20,16 @@ export class BranchOwnerController {
 			ownerId: parseInt(ownerId),
 		});
 		return ListBranchesResponseDto.fromReadModels(branches);
+	}
+
+	@RequiredAuth({
+		roles: [UserRole.Owner],
+	})
+	@Post()
+	async create(@Param('ownerId') ownerId: string, @Body() input: CreateBranchRequestDto) {
+		await this.branchService.createBranch({
+			data: input,
+			ownerId: parseInt(ownerId),
+		});
 	}
 }

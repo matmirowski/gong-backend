@@ -28,8 +28,8 @@ CREATE TABLE branch (
   price_low INTEGER,
   price_high INTEGER,
   category_id INTEGER,
-  opening_time TIME,
-  closing_time TIME,
+  opening_time TEXT,
+  closing_time TEXT,
   FOREIGN KEY (status_id) REFERENCES enum_status(id),
   FOREIGN KEY (category_id) REFERENCES enum_category(id),
   FOREIGN KEY (owner_id) REFERENCES user(id)

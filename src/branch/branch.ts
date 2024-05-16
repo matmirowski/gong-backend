@@ -1,9 +1,24 @@
+import { CreateBranchInput } from './branch.service';
+
 export const BranchStatus = {
 	Active: 'active',
 	Rejected: 'rejected',
 	Pending: 'pending',
 } as const;
 export type BranchStatus = (typeof BranchStatus)[keyof typeof BranchStatus];
+
+export const BRANCH_STATUS_TO_ID = (status: BranchStatus) => {
+	switch (status) {
+		case 'active':
+			return 1;
+		case 'rejected':
+			return 2;
+		case 'pending':
+			return 3;
+		default:
+			throw new Error('Invalid branch status');
+	}
+};
 
 interface BranchData {
 	id?: number;
@@ -17,12 +32,16 @@ interface BranchData {
 	highPrice: number;
 	categoryId: number;
 	statusId: number;
-	openingTime: Date;
-	closingTime: Date;
+	openingTime: string;
+	closingTime: string;
+	street: string;
+	city: string;
+	buildingNumber: number;
+	distanceFromUniversity: number;
 }
 
 export class Branch {
-	public readonly id?: number;
+	public _id?: number;
 	public readonly ownerId: number;
 	public readonly name: string;
 	public readonly slogan: string;
@@ -33,11 +52,15 @@ export class Branch {
 	public readonly highPrice: number;
 	public readonly categoryId: number;
 	public readonly statusId: number;
-	public readonly openingTime: Date;
-	public readonly closingTime: Date;
+	public readonly openingTime: string;
+	public readonly closingTime: string;
+	public readonly street: string;
+	public readonly city: string;
+	public readonly buildingNumber: number;
+	public readonly distanceFromUniversity: number;
 
 	constructor(data: BranchData) {
-		this.id = data.id;
+		this._id = data.id;
 		this.ownerId = data.ownerId;
 		this.name = data.name;
 		this.slogan = data.slogan;
@@ -50,5 +73,30 @@ export class Branch {
 		this.statusId = data.statusId;
 		this.openingTime = data.openingTime;
 		this.closingTime = data.closingTime;
+		this.street = data.street;
+		this.city = data.city;
+		this.buildingNumber = data.buildingNumber;
+		this.distanceFromUniversity = data.distanceFromUniversity;
+	}
+
+	static new(input: CreateBranchInput) {
+		return new Branch({
+			ownerId: input.ownerId,
+			name: input.data.name,
+			slogan: input.data.slogan,
+			phoneNumber: input.data.phoneNumber,
+			description: input.data.description,
+			image: input.data.image,
+			lowPrice: input.data.lowerPriceRange,
+			highPrice: input.data.higherPriceRange,
+			categoryId: input.data.categoryId,
+			statusId: BRANCH_STATUS_TO_ID(BranchStatus.Pending),
+			openingTime: input.data.openingTime,
+			closingTime: input.data.closingTime,
+			street: input.data.street,
+			city: input.data.city,
+			buildingNumber: input.data.buildingNumber,
+			distanceFromUniversity: input.data.distanceFromUniversity,
+		});
 	}
 }

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BranchStatus } from './branch';
+import { Branch, BranchStatus } from './branch';
 import { DbClient } from '../database/db-client';
-import { SelectableBranch, SelectableBranchLocation } from '../database/database';
+import { BranchLocationTable, BranchTable, SelectableBranch, SelectableBranchLocation } from '../database/database';
 import { BranchReadModel } from './branch.read-model';
 
 interface BranchesQueryInput {
@@ -22,9 +22,58 @@ const mapTableRecordToReadModel = (record: SelectableBranch & SelectableBranchLo
 	};
 };
 
+const mapBranchToBranchTableRecord = (branch: Branch): Omit<BranchTable, 'id'> => {
+	return {
+		owner_id: branch.ownerId,
+		name: branch.name,
+		slogan: branch.slogan,
+		phone_number: branch.phoneNumber,
+		description: branch.description,
+		status_id: branch.statusId,
+		image_base64: branch.image,
+		price_low: branch.lowPrice,
+		price_high: branch.highPrice,
+		category_id: branch.categoryId,
+		opening_time: branch.openingTime,
+		closing_time: branch.closingTime,
+	};
+};
+
+const mapBranchToBranchLocationTableRecord = (branch: Branch, branchId: number): Omit<BranchLocationTable, 'id'> => {
+	return {
+		branch_id: branchId,
+		street: branch.street,
+		city: branch.city,
+		building_number: branch.buildingNumber,
+		distance_from_university: branch.distanceFromUniversity,
+	};
+};
+
 @Injectable()
 export class BranchRepository {
 	constructor(@Inject(DbClient) private readonly dbClient: DbClient) {}
+
+	async insert(branch: Branch) {
+		await this.dbClient
+			.db()
+			.insertInto('branch')
+			.values(mapBranchToBranchTableRecord(branch))
+			.executeTakeFirstOrThrow();
+
+		const result = await this.dbClient
+			.db()
+			.selectFrom('branch')
+			.select('id')
+			.orderBy('id', 'desc')
+			.limit(1)
+			.executeTakeFirstOrThrow();
+
+		await this.dbClient
+			.db()
+			.insertInto('branch_location')
+			.values(mapBranchToBranchLocationTableRecord(branch, result.id))
+			.executeTakeFirstOrThrow();
+	}
 
 	async findBy(input: BranchesQueryInput): Promise<BranchReadModel[]> {
 		let query = this.dbClient
