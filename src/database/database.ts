@@ -15,10 +15,12 @@ interface EnumStatusTable {
 	description: string;
 }
 
-interface EnumCategoryTable {
+export interface EnumCategoryTable {
 	id: Generated<number>;
 	name: string;
 }
+
+export type SelectableCategory = Selectable<EnumCategoryTable>;
 
 export interface UserTable {
 	id: Generated<number>;
