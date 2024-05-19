@@ -29,7 +29,7 @@ export interface UserTable {
 }
 export type SelectableUser = Selectable<UserTable>;
 
-interface BranchTable {
+export interface BranchTable {
 	id: Generated<number>;
 	owner_id: number;
 	name: string;
@@ -46,7 +46,7 @@ interface BranchTable {
 }
 export type SelectableBranch = Selectable<BranchTable>;
 
-interface BranchLocationTable {
+export interface BranchLocationTable {
 	id: Generated<number>;
 	branch_id: number;
 	street: string;
