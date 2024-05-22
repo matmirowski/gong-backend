@@ -115,4 +115,15 @@ export class BranchRepository {
 
 		return result ? mapTableRecordToReadModel(result) : undefined;
 	}
+
+	async reject(branchId: number) {
+		await this.dbClient
+			.db()
+			.updateTable('branch')
+			.set({
+				status_id: 2,
+			})
+			.where('id', '=', branchId)
+			.executeTakeFirstOrThrow();
+	}
 }

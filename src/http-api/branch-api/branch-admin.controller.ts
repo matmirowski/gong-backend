@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Query } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Post, Query } from '@nestjs/common';
 import { BranchService } from '../../branch/branch.service';
 import { RequiredAuth } from '../auth/auth-decorator';
 import { UserRole } from '../../user/user';
@@ -18,5 +18,12 @@ export class BranchAdminController {
 			status: query.status,
 		});
 		return ListBranchesResponseDto.fromReadModels(branches);
+	}
+	@RequiredAuth({
+		roles: [UserRole.Admin],
+	})
+	@Post(':branchId/reject')
+	async reject(@Param('branchId') branchId: string) {
+		await this.branchService.rejectBranch(parseInt(branchId));
 	}
 }

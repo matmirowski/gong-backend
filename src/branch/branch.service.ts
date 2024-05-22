@@ -36,4 +36,8 @@ export class BranchService {
 		}
 		return result;
 	}
+
+	async rejectBranch(branchId: number): Promise<void> {
+		await this.branchRepository.reject(branchId);
+	}
 }
