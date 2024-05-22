@@ -11,8 +11,16 @@ interface BranchesQueryInput {
 
 const mapTableRecordToReadModel = (record: SelectableBranch & SelectableBranchLocation): BranchReadModel => {
 	return {
-		id: record.id,
+		id: record.branch_id,
 		name: record.name,
+		slogan: record.slogan,
+		phoneNumber: record.phone_number,
+		description: record.description,
+		image: record.image_base64,
+		priceLow: record.price_low,
+		priceHigh: record.price_high,
+		openingTime: record.opening_time,
+		closingTime: record.closing_time,
 		address: {
 			street: record.street,
 			city: record.city,
@@ -93,5 +101,18 @@ export class BranchRepository {
 		const results = await query.selectAll().execute();
 
 		return results.map(mapTableRecordToReadModel);
+	}
+
+	async findOneBy(branchId: number): Promise<BranchReadModel | undefined> {
+		const result = await this.dbClient
+			.db()
+			.selectFrom('branch')
+			.innerJoin('branch_location', 'branch_location.branch_id', 'branch.id')
+			.innerJoin('enum_status', 'enum_status.id', 'branch.status_id')
+			.where('branch.id', '=', branchId)
+			.selectAll()
+			.executeTakeFirst();
+
+		return result ? mapTableRecordToReadModel(result) : undefined;
 	}
 }

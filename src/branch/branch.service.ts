@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common';
+import { Inject, NotFoundException } from '@nestjs/common';
 import { BranchRepository } from './branch.repository';
 import { Branch, BranchStatus } from './branch';
 import { BranchReadModel } from './branch.read-model';
@@ -27,5 +27,13 @@ export class BranchService {
 			status: input.status,
 			ownerId: input.ownerId,
 		});
+	}
+
+	async fetchBranchDetails(branchId: number): Promise<BranchReadModel> {
+		const result = await this.branchRepository.findOneBy(branchId);
+		if (!result) {
+			throw new NotFoundException();
+		}
+		return result;
 	}
 }
