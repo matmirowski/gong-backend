@@ -26,4 +26,11 @@ export class BranchAdminController {
 	async reject(@Param('branchId') branchId: string) {
 		await this.branchService.rejectBranch(parseInt(branchId));
 	}
+	@RequiredAuth({
+		roles: [UserRole.Admin],
+	})
+	@Post(':branchId/approve')
+	async approve(@Param('branchId') branchId: string) {
+		await this.branchService.approveBranch(parseInt(branchId));
+	}
 }

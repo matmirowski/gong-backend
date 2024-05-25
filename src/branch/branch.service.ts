@@ -40,4 +40,8 @@ export class BranchService {
 	async rejectBranch(branchId: number): Promise<void> {
 		await this.branchRepository.reject(branchId);
 	}
+
+	async approveBranch(branchId: number): Promise<void> {
+		await this.branchRepository.approve(branchId);
+	}
 }
