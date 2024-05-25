@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Branch, BranchStatus } from './branch';
+import { BRANCH_STATUS_TO_ID, Branch, BranchStatus } from './branch';
 import { DbClient } from '../database/db-client';
 import { BranchLocationTable, BranchTable, SelectableBranch, SelectableBranchLocation } from '../database/database';
 import { BranchReadModel } from './branch.read-model';
@@ -114,5 +114,16 @@ export class BranchRepository {
 			.executeTakeFirst();
 
 		return result ? mapTableRecordToReadModel(result) : undefined;
+	}
+
+	async reject(branchId: number) {
+		await this.dbClient
+			.db()
+			.updateTable('branch')
+			.set({
+				status_id: BRANCH_STATUS_TO_ID(BranchStatus.Rejected),
+			})
+			.where('id', '=', branchId)
+			.executeTakeFirstOrThrow();
 	}
 }
