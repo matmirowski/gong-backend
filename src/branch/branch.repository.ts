@@ -108,7 +108,6 @@ export class BranchRepository {
 			.db()
 			.selectFrom('branch')
 			.innerJoin('branch_location', 'branch_location.branch_id', 'branch.id')
-			.innerJoin('enum_status', 'enum_status.id', 'branch.status_id')
 			.where('branch.id', '=', branchId)
 			.selectAll()
 			.executeTakeFirst();
