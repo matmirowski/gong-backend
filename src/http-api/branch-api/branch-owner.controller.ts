@@ -42,9 +42,9 @@ export class BranchOwnerController {
 		await this.branchService.removeBranch(parseInt(ownerId), parseInt(branchId));
 	}
 
-	// @RequiredAuth({
-	// 	roles: [UserRole.Owner],
-	// })
+	@RequiredAuth({
+		roles: [UserRole.Owner],
+	})
 	@Patch(':branchId')
 	async modify(@Param('branchId') branchId: string, @Body() input: ModifyBranchRequestDto) {
 		await this.branchService.modifyBranch(parseInt(branchId), input);
