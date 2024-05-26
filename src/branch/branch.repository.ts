@@ -126,4 +126,15 @@ export class BranchRepository {
 			.where('id', '=', branchId)
 			.executeTakeFirstOrThrow();
 	}
+
+	async approve(branchId: number) {
+		await this.dbClient
+			.db()
+			.updateTable('branch')
+			.set({
+				status_id: BRANCH_STATUS_TO_ID(BranchStatus.Active),
+			})
+			.where('id', '=', branchId)
+			.executeTakeFirstOrThrow();
+	}
 }
