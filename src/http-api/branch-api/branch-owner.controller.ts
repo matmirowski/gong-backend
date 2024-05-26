@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, Query } from '@nestjs/common';
 import { RequiredAuth } from '../auth/auth-decorator';
 import { UserRole } from '../../user/user';
 import { ListBranchesQueryDto } from './dto/list-branches-query.dto';
 import { BranchService } from '../../branch/branch.service';
 import { ListBranchesResponseDto } from './dto/list-branches-response.dto';
 import { CreateBranchRequestDto } from './dto/create-branch-request.dto';
+import { ModifyBranchRequestDto } from './dto/modify-branch-request.dto';
 
 @Controller('owner/:ownerId/branches')
 export class BranchOwnerController {
@@ -39,5 +40,13 @@ export class BranchOwnerController {
 	@Delete(':branchId')
 	async remove(@Param('ownerId') ownerId: string, @Param('branchId') branchId: string) {
 		await this.branchService.removeBranch(parseInt(ownerId), parseInt(branchId));
+	}
+
+	@RequiredAuth({
+		roles: [UserRole.Owner],
+	})
+	@Patch(':branchId')
+	async modify(@Param('branchId') branchId: string, @Body() input: ModifyBranchRequestDto) {
+		await this.branchService.modifyBranch(parseInt(branchId), input);
 	}
 }

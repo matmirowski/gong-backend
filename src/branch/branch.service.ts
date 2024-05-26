@@ -3,6 +3,7 @@ import { BranchRepository } from './branch.repository';
 import { Branch, BranchStatus } from './branch';
 import { BranchReadModel } from './branch.read-model';
 import { CreateBranchRequestDto } from '../http-api/branch-api/dto/create-branch-request.dto';
+import { ModifyBranchRequestDto } from '../http-api/branch-api/dto/modify-branch-request.dto';
 
 export interface CreateBranchInput {
 	data: CreateBranchRequestDto;
@@ -47,5 +48,12 @@ export class BranchService {
 
 	async removeBranch(ownerId: number, branchId: number): Promise<void> {
 		await this.branchRepository.remove(ownerId, branchId);
+	}
+
+	async modifyBranch(branchId: number, input: ModifyBranchRequestDto) {
+		await this.branchRepository.modify(branchId, {
+			slogan: input.slogan,
+			description: input.description,
+		});
 	}
 }
