@@ -44,4 +44,8 @@ export class BranchService {
 	async approveBranch(branchId: number): Promise<void> {
 		await this.branchRepository.approve(branchId);
 	}
+
+	async removeBranch(ownerId: number, branchId: number): Promise<void> {
+		await this.branchRepository.remove(ownerId, branchId);
+	}
 }

@@ -137,4 +137,18 @@ export class BranchRepository {
 			.where('id', '=', branchId)
 			.executeTakeFirstOrThrow();
 	}
+
+	async remove(ownerId: number, branchId: number) {
+		await this.dbClient
+			.db()
+			.deleteFrom('branch_location')
+			.where('branch_location.branch_id', '=', branchId)
+			.executeTakeFirst();
+		await this.dbClient
+			.db()
+			.deleteFrom('branch')
+			.where('branch.owner_id', '=', ownerId)
+			.where('branch.id', '=', branchId)
+			.executeTakeFirst();
+	}
 }
