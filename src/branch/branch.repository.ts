@@ -9,6 +9,11 @@ interface BranchesQueryInput {
 	ownerId?: number;
 }
 
+interface BranchesModifyInput {
+	description: string;
+	slogan: string;
+}
+
 const mapTableRecordToReadModel = (record: SelectableBranch & SelectableBranchLocation): BranchReadModel => {
 	return {
 		id: record.branch_id,
@@ -150,5 +155,17 @@ export class BranchRepository {
 			.where('branch.owner_id', '=', ownerId)
 			.where('branch.id', '=', branchId)
 			.executeTakeFirst();
+	}
+
+	async modify(branchId: number, input: BranchesModifyInput) {
+		await this.dbClient
+			.db()
+			.updateTable('branch')
+			.set({
+				slogan: input.slogan,
+				description: input.description,
+			})
+			.where('id', '=', branchId)
+			.execute();
 	}
 }
