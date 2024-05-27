@@ -8,4 +8,8 @@ export class CouponService {
 	async findCoupons(branchId: number): Promise<CouponReadModel[]> {
 		return await this.couponRepository.findBy(branchId);
 	}
+
+	async removeCoupon(branchId: number, couponId: number) {
+		await this.couponRepository.remove(branchId, couponId);
+	}
 }
