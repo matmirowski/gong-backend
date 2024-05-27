@@ -25,4 +25,15 @@ export class CouponRepository {
 
 		return result.map(mapTableRecordToReadModel);
 	}
+
+	async remove(branchId: number, couponId: number) {
+		await this.dbClient.db().deleteFrom('coupon_code').where('coupon_code.coupon_id', '=', couponId).execute();
+
+		await this.dbClient
+			.db()
+			.deleteFrom('coupon')
+			.where('coupon.branch_id', '=', branchId)
+			.where('coupon.id', '=', couponId)
+			.execute();
+	}
 }
