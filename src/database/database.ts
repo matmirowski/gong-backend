@@ -65,6 +65,7 @@ interface CouponTable {
 	description: string;
 	lifespan: string;
 }
+export type SelectableCoupon = Selectable<CouponTable>;
 
 interface CouponCodeTable {
 	id: Generated<number>;
@@ -72,3 +73,4 @@ interface CouponCodeTable {
 	code: string;
 	created_at: Date;
 }
+export type SelectableCouponCode = Selectable<CouponCodeTable>;
