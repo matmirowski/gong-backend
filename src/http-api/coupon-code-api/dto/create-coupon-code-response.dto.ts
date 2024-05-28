@@ -1,8 +1,6 @@
 import { CouponCode } from '../../../coupon-code/coupon-code';
 import { Coupon } from '../../../coupon/coupon';
-
-const ONE_SECOND = 1000;
-const ONE_MINUTE = 60 * ONE_SECOND;
+import { ONE_MINUTE } from '../../../time/time';
 
 export class CreateCouponCodeResponseDto {
 	code: string;
