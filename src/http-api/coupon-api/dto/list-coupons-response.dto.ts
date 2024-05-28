@@ -4,14 +4,14 @@ export class ListedCouponDto {
 	id: number;
 	title: string;
 	description: string;
-	lifespan: string;
+	lifespanInMinutes: number;
 
 	static fromReadModel(coupon: CouponReadModel): ListedCouponDto {
 		return {
 			id: coupon.id,
 			title: coupon.title,
 			description: coupon.description,
-			lifespan: coupon.lifespan,
+			lifespanInMinutes: coupon.lifespanInMinutes,
 		};
 	}
 }

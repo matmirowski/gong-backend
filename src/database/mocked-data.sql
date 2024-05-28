@@ -37,11 +37,11 @@ INSERT INTO branch_location (branch_id, street, city, building_number, distance_
 (6, 'Arcade Ave', 'Gameville', 606, 1200),
 (7, 'Gourmet Street', 'Foodcity', 707, 550);
 
-INSERT INTO coupon (branch_id, title, description, lifespan) VALUES
-(1, 'Wiosenna Promocja', '20% zniżki na wszystkie napoje espresso!', '04:00:00'),
-(2, 'Fest Tech', '10% zniżki przy zakupie powyżej $100', '06:00:00'),
-(3, 'Art Lovers Discount', '15% zniżki na wszystkie wydruki artystyczne', '07:00:00'),
-(4, 'Healthy Start', '25% zniżki na wszystkie karnety miesięczne', '08:00:00');
+INSERT INTO coupon (branch_id, title, description, lifespanInMinutes) VALUES
+(1, 'Wiosenna Promocja', '20% zniżki na wszystkie napoje espresso!', 20),
+(2, 'Fest Tech', '10% zniżki przy zakupie powyżej $100', 15),
+(3, 'Art Lovers Discount', '15% zniżki na wszystkie wydruki artystyczne', 10),
+(4, 'Healthy Start', '25% zniżki na wszystkie karnety miesięczne', 20);
 
 INSERT INTO coupon_code (coupon_id, code, created_at) VALUES
 (1, 'ESP2024', NOW()),
