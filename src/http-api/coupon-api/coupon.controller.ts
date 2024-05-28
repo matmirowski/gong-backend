@@ -15,9 +15,9 @@ export class CouponController {
 		return ListCouponsResponseDto.fromReadModels(result);
 	}
 
-	// @RequiredAuth({
-	// 	roles: [UserRole.Owner],
-	// })
+	@RequiredAuth({
+		roles: [UserRole.Owner],
+	})
 	@Post()
 	async create(@Param('branchId') branchId: string, @Body() input: CreateCouponRequestDto) {
 		await this.couponService.createCoupon({
