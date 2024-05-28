@@ -1,3 +1,5 @@
+import { BranchStatus } from './branch';
+
 interface Branch {
 	id: number;
 	name: string;
@@ -15,6 +17,7 @@ interface Branch {
 		buildingNumber: number;
 		distanceFromUniversity: number;
 	};
+	status: BranchStatus;
 }
 
 export type BranchReadModel = Readonly<Branch>;

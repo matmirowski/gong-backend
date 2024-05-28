@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { BRANCH_STATUS_TO_ID, Branch, BranchStatus } from './branch';
+import { BRANCH_STATUS_ID_TO_ENUM, BRANCH_STATUS_TO_ID, Branch, BranchStatus } from './branch';
 import { DbClient } from '../database/db-client';
 import { BranchLocationTable, BranchTable, SelectableBranch, SelectableBranchLocation } from '../database/database';
 import { BranchReadModel } from './branch.read-model';
@@ -26,6 +26,7 @@ const mapTableRecordToReadModel = (record: SelectableBranch & SelectableBranchLo
 		priceHigh: record.price_high,
 		openingTime: record.opening_time,
 		closingTime: record.closing_time,
+		status: BRANCH_STATUS_ID_TO_ENUM(record.status_id),
 		address: {
 			street: record.street,
 			city: record.city,

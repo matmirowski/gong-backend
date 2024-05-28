@@ -1,3 +1,4 @@
+import { BranchStatus } from '../../../branch/branch';
 import { BranchReadModel } from '../../../branch/branch.read-model';
 
 export class FetchBranchDetailsResponseDto {
@@ -11,6 +12,7 @@ export class FetchBranchDetailsResponseDto {
 	priceHigh: number;
 	openingTime: string;
 	closingTime: string;
+	status: BranchStatus;
 	address: {
 		street: string;
 		city: string;
@@ -30,6 +32,7 @@ export class FetchBranchDetailsResponseDto {
 			priceHigh: branch.priceHigh,
 			openingTime: branch.openingTime,
 			closingTime: branch.closingTime,
+			status: branch.status,
 			address: {
 				street: branch.address.street,
 				city: branch.address.city,
