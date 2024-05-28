@@ -50,7 +50,7 @@ CREATE TABLE coupon (
   branch_id INTEGER,
   title TEXT,
   description TEXT,
-  lifespan TIME,
+  lifespan_in_minutes INTEGER,
   FOREIGN KEY (branch_id) REFERENCES branch(id)
 );
 

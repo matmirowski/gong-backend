@@ -1,19 +1,33 @@
 import { Inject } from '@nestjs/common';
 import { DbClient } from '../database/db-client';
-import { SelectableCoupon } from '../database/database';
+import { CouponTable, SelectableCoupon } from '../database/database';
 import { CouponReadModel } from './coupon.read-model';
+import { Coupon } from './coupon';
 
 const mapTableRecordToReadModel = (record: SelectableCoupon): CouponReadModel => {
 	return {
 		id: record.id,
 		title: record.title,
 		description: record.description,
-		lifespan: record.lifespan,
+		lifespanInMinutes: record.lifespan_in_minutes,
+	};
+};
+
+const mapEntityToTableRecord = (coupon: Coupon): Omit<CouponTable, 'id'> => {
+	return {
+		branch_id: coupon.branchId,
+		title: coupon.title,
+		description: coupon.description,
+		lifespan_in_minutes: Coupon.LIFESPAN_IN_MINUTES,
 	};
 };
 
 export class CouponRepository {
 	constructor(@Inject(DbClient) private readonly dbClient: DbClient) {}
+
+	async insert(coupon: Coupon) {
+		await this.dbClient.db().insertInto('coupon').values(mapEntityToTableRecord(coupon)).execute();
+	}
 
 	async findBy(branchId: number): Promise<CouponReadModel[]> {
 		const result = await this.dbClient
