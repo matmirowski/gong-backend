@@ -63,7 +63,7 @@ export interface CouponTable {
 	branch_id: number;
 	title: string;
 	description: string;
-	lifespanInMinutes: number;
+	lifespan_in_minutes: number;
 }
 export type SelectableCoupon = Selectable<CouponTable>;
 

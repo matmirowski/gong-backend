@@ -9,7 +9,7 @@ const mapTableRecordToReadModel = (record: SelectableCoupon): CouponReadModel =>
 		id: record.id,
 		title: record.title,
 		description: record.description,
-		lifespanInMinutes: record.lifespanInMinutes,
+		lifespanInMinutes: record.lifespan_in_minutes,
 	};
 };
 
@@ -18,7 +18,7 @@ const mapEntityToTableRecord = (coupon: Coupon): Omit<CouponTable, 'id'> => {
 		branch_id: coupon.branchId,
 		title: coupon.title,
 		description: coupon.description,
-		lifespanInMinutes: Coupon.LIFESPAN_IN_MINUTES,
+		lifespan_in_minutes: Coupon.LIFESPAN_IN_MINUTES,
 	};
 };
 
