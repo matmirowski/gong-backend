@@ -1,4 +1,4 @@
-import { IsInt, IsNotEmpty, IsPhoneNumber, IsPositive, IsString, Min } from 'class-validator';
+import { IsInt, IsNotEmpty, IsPositive, IsString, Min } from 'class-validator';
 
 export class CreateBranchRequestDto {
 	@IsString()
@@ -25,7 +25,6 @@ export class CreateBranchRequestDto {
 	buildingNumber: number;
 
 	@IsString()
-	@IsPhoneNumber()
 	phoneNumber: string;
 
 	@IsString()

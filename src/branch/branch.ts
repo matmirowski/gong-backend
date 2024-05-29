@@ -20,6 +20,19 @@ export const BRANCH_STATUS_TO_ID = (status: BranchStatus) => {
 	}
 };
 
+export const BRANCH_STATUS_ID_TO_ENUM = (id: number): BranchStatus => {
+	switch (id) {
+		case 1:
+			return 'active';
+		case 2:
+			return 'rejected';
+		case 3:
+			return 'pending';
+		default:
+			throw new Error('Invalid branch status ID');
+	}
+};
+
 interface BranchData {
 	id?: number;
 	ownerId: number;

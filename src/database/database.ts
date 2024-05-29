@@ -58,17 +58,19 @@ export interface BranchLocationTable {
 }
 export type SelectableBranchLocation = Selectable<BranchLocationTable>;
 
-interface CouponTable {
+export interface CouponTable {
 	id: Generated<number>;
 	branch_id: number;
 	title: string;
 	description: string;
-	lifespan: string;
+	lifespan_in_minutes: number;
 }
+export type SelectableCoupon = Selectable<CouponTable>;
 
-interface CouponCodeTable {
+export interface CouponCodeTable {
 	id: Generated<number>;
 	coupon_id: number;
 	code: string;
 	created_at: Date;
 }
+export type SelectableCouponCode = Selectable<CouponCodeTable>;
