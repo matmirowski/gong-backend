@@ -2,8 +2,6 @@ Konta w bazie:
 login: szymon password: Szymon123! rola: admin
 login: mateusz password: Mateusz123! rola: owner
 login: kacper password: Kacper123! rola: owner
-<<<<<<< Updated upstream
-=======
 
 # How to run?
 1. Make sure you have Node.js installed (preferably version 21+)
@@ -23,4 +21,3 @@ Don't exit this process unless you finished working with the project.
 `yarn start`
 8. Now your application is successfuly running, congratulations!
 Default URI for API requests is `localhost:3030`
->>>>>>> Stashed changes
