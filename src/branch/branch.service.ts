@@ -13,6 +13,8 @@ export interface CreateBranchInput {
 export interface FindBranchesInput {
 	status?: BranchStatus;
 	ownerId?: number;
+	sortByDistance?: boolean;
+	categoryId?: number;
 }
 
 export class BranchService {
@@ -27,6 +29,8 @@ export class BranchService {
 		return await this.branchRepository.findBy({
 			status: input.status,
 			ownerId: input.ownerId,
+			sortByDistance: input.sortByDistance,
+			categoryId: input.categoryId,
 		});
 	}
 

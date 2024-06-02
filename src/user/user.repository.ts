@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DbClient } from '../database/db-client';
 import { User, UserRole } from './user';
 import { SelectableUser, UserTable } from '../database/database';
+import { Expression, SqlBool } from 'kysely';
 
 export interface FindOneInput {
 	login?: string;
@@ -39,12 +40,20 @@ export class UserRepository {
 	async findOneBy(input: FindOneInput): Promise<User | undefined> {
 		let query = this.dbClient.db().selectFrom('user');
 
-		if (input.login) {
-			query = query.where('login', '=', input.login);
-		}
+		if (input.login || input.email) {
+			query = query.where((eb) => {
+				const ors: Expression<SqlBool>[] = [];
 
-		if (input.email) {
-			query = query.where('email', '=', input.email);
+				if (input.login) {
+					ors.push(eb('login', '=', input.login));
+				}
+
+				if (input.email) {
+					ors.push(eb('email', '=', input.email));
+				}
+
+				return eb.or(ors);
+			});
 		}
 
 		if (input.role) {

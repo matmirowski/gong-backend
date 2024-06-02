@@ -7,6 +7,8 @@ import { BranchReadModel } from './branch.read-model';
 interface BranchesQueryInput {
 	status?: BranchStatus;
 	ownerId?: number;
+	sortByDistance?: boolean;
+	categoryId?: number;
 }
 
 interface BranchesModifyInput {
@@ -95,7 +97,8 @@ export class BranchRepository {
 			.selectFrom('branch')
 			.innerJoin('branch_location', 'branch_location.branch_id', 'branch.id')
 			.innerJoin('enum_status', 'enum_status.id', 'branch.status_id')
-			.innerJoin('user', 'user.id', 'branch.owner_id');
+			.innerJoin('user', 'user.id', 'branch.owner_id')
+			.innerJoin('enum_category', 'branch.category_id', 'enum_category.id');
 
 		if (input.status) {
 			query = query.where('enum_status.description', '=', input.status);
@@ -104,7 +107,15 @@ export class BranchRepository {
 		if (input.ownerId) {
 			query = query.where('user.id', '=', input.ownerId);
 		}
-		const results = await query.selectAll().execute();
+
+		if (input.sortByDistance) {
+			query = query.orderBy('branch_location.distance_from_university asc');
+		}
+
+		if (input.categoryId) {
+			query = query.where('branch.category_id', '=', input.categoryId);
+		}
+		const results = await query.selectAll('branch').selectAll('branch_location').execute();
 
 		return results.map(mapTableRecordToReadModel);
 	}

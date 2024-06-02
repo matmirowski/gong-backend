@@ -8,7 +8,6 @@ export class RegisterUserRequestDto {
 	@IsEmail()
 	email: string;
 
-	//TODO: add validation when requirements specified
 	@IsString()
 	@IsNotEmpty()
 	password: string;
