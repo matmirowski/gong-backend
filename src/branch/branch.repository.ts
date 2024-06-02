@@ -115,7 +115,7 @@ export class BranchRepository {
 		if (input.categoryId) {
 			query = query.where('branch.category_id', '=', input.categoryId);
 		}
-		const results = await query.selectAll().execute();
+		const results = await query.selectAll('branch').selectAll('branch_location').execute();
 
 		return results.map(mapTableRecordToReadModel);
 	}
