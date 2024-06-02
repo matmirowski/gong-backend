@@ -10,7 +10,9 @@ services:
     environment:
       MYSQL_DATABASE: gongdb
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db-data-project-gong:/var/lib/mysql
 networks:
   app-network:
 volumes:
-  db-data-gong:
+  db-data-project-gong:
